@@ -48,7 +48,7 @@ public class CenterPanel extends JPanel {
                     containerSize.height / 2 - c.getSize().height / 2);
         }
         //调用父方法更新
-        super.repaint();
+        super.repaint(); 
     }
 
     /**
@@ -69,9 +69,9 @@ public class CenterPanel extends JPanel {
         //如果是一个实现了 WorkingPanel 的子类，会执行它的 updateData() 方法
         if ((p instanceof WorkingPanel)) {
             ((WorkingPanel) p).updateData(MonthPickerPanel.instance.toDay);
-        }
+        }  
         //居中处理
-        this.updateUI();
+        this.updateUI();  
     }
 
     //测试用

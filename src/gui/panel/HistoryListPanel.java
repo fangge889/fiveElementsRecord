@@ -5,12 +5,14 @@ import gui.listener.HistoryListListener;
 import gui.model.MTableCellRenderer;
 import gui.model.RecordTableModel;
 import service.RecordService;
+import util.Adjustment;
 import util.ColorUtil;
 import util.GUIUtil;
 
 import javax.swing.*; 
 
 import java.awt.*;
+import java.awt.event.AdjustmentEvent; 
 import java.util.Date;
 
 /**
@@ -19,13 +21,13 @@ import java.util.Date;
  *
  * @author xenv
  */
-public class HistoryListPanel extends WorkingPanel {
+public class HistoryListPanel extends WorkingPanel{
     static {
         GUIUtil.useLNF();
     }
 
     public static HistoryListPanel instance = new HistoryListPanel();
-    public JButton bAdd = new JButton("新增");
+    //public JButton bAdd = new JButton("新增");
     public JButton bEdit = new JButton("编辑");
     public JButton bDelete = new JButton("删除");
     
@@ -44,44 +46,43 @@ public class HistoryListPanel extends WorkingPanel {
     public JTextField tfComment44 = new JTextField();
     public JTextField tfComment55 = new JTextField();
 
-    private RecordTableModel rtm = new RecordTableModel();
-    private JTable t =new JTable(rtm);
-
-    private HistoryListPanel(){    
-    	
-    	//t.setModel(new RecordTableModel());
+    public RecordTableModel rtm = new RecordTableModel();
+    public JTable t = new JTable(rtm);
+    public JScrollPane sp = new JScrollPane(t);
+    public JScrollBar jscrollBar = sp.getVerticalScrollBar();
+    
+    private HistoryListPanel(){      
         t.getColumnModel().getColumn(1).setCellRenderer(new MTableCellRenderer());
         t.getColumnModel().getColumn(2).setCellRenderer(new MTableCellRenderer());
         t.getColumnModel().getColumn(3).setCellRenderer(new MTableCellRenderer());
         t.getColumnModel().getColumn(4).setCellRenderer(new MTableCellRenderer());
         t.getColumnModel().getColumn(5).setCellRenderer(new MTableCellRenderer());
         
-        GUIUtil.setColor(ColorUtil.blueColor, bAdd,bEdit,bDelete);
-        JScrollPane sp =new JScrollPane(t);
-        JPanel pSubmit = new JPanel(); 
-        
+        GUIUtil.setColor(ColorUtil.blueColor,bEdit,bDelete,lComment1,lComment2); 
+        sp.doLayout(); 
+        jscrollBar.setValue(jscrollBar.getMaximum());
+        JPanel pSubmit = new JPanel();
+          
         pSubmit.add(lComment1);
         pSubmit.add(tfComment1);
         pSubmit.add(tfComment2);
         pSubmit.add(tfComment3);
         pSubmit.add(tfComment4);
-        pSubmit.add(tfComment5);
- 
+        pSubmit.add(tfComment5); 
+        
         pSubmit.add(lComment2);
         pSubmit.add(tfComment11);
         pSubmit.add(tfComment22);
         pSubmit.add(tfComment33);
         pSubmit.add(tfComment44);
-        pSubmit.add(tfComment55); 
-         
-        pSubmit.add(bAdd);
+        pSubmit.add(tfComment55);  
+        
         pSubmit.add(bEdit);
         pSubmit.add(bDelete); 
 
         this.setLayout(new BorderLayout());
         this.add(sp,BorderLayout.CENTER);
-        this.add(pSubmit,BorderLayout.SOUTH);
-
+        this.add(pSubmit,BorderLayout.SOUTH); 
         this.addListener();   
     }
     public static void main(String[] args) {
@@ -96,16 +97,23 @@ public class HistoryListPanel extends WorkingPanel {
     }
     @Override
     public void updateData(Date date) {
-        rtm.rs = new RecordService().listDay(date); 
+        rtm.rs = new RecordService().listDay(date);  
         t.updateUI(); 
     }
 
     @Override
     public void addListener() {   
-        HistoryListListener l = new HistoryListListener(); 
+        HistoryListListener l = new HistoryListListener();  
         
         bDelete.addActionListener(l);
         bEdit.addActionListener(l);
-        bAdd.addActionListener(l); 
     }
+    
+    public void adjustmentValueChanged(AdjustmentEvent e) { 
+		if (e.getAdjustable() == jscrollBar) { 
+			if(rtm.rs.size() > 0) {
+				jscrollBar.setValue(e.getValue() + 1);
+			} 
+		}
+	}
 }

@@ -2,6 +2,7 @@ package util;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.AdjustmentEvent;
 import java.io.File;
 
 /**
@@ -91,5 +92,5 @@ public class GUIUtil {
         for (JComponent c : cs) {
             c.setForeground(color);
         }
-    }
+    } 
 }

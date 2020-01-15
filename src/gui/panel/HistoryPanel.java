@@ -1,16 +1,17 @@
 package gui.panel;
-
-import util.ColorUtil;
+ 
+import util.Adjustment;
 import util.GUIUtil;
 
-import java.awt.*;
+import java.awt.*; 
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import entity.Record;
-import gui.model.MTableCellRenderer;
 import gui.model.RecordTableModel;
 import service.RecordService;
 
@@ -22,17 +23,20 @@ import service.RecordService;
  * @see MonthPickerPanel
  * @see HistoryListPanel
  */
-public class HistoryPanel extends WorkingPanel {
+public class HistoryPanel extends WorkingPanel{
     static {
         GUIUtil.useLNF();
     }
 
     public static HistoryPanel instance = new HistoryPanel();
     
-    private RecordTableModel rtm = new RecordTableModel();
-    private JTable t =new JTable(rtm);
+    public RecordTableModel rtm = new RecordTableModel();
+    public JTable t =new JTable(rtm);
+    
+    public JScrollPane sp =new JScrollPane(t);
+    public JScrollBar jscrollBar = sp.getVerticalScrollBar();
 
-    private HistoryPanel() {
+    private HistoryPanel() { 
     	List<Record> rs = new RecordService().listDay(MonthPickerPanel.instance.toDay);
     	int comment1 = 0;
     	int comment2 = 0;
@@ -68,10 +72,14 @@ public class HistoryPanel extends WorkingPanel {
         HistoryListPanel.instance.tfComment33.setText(rs.size() - comment3 + "");
         HistoryListPanel.instance.tfComment44.setText(rs.size() - comment4 + "");
         HistoryListPanel.instance.tfComment55.setText(rs.size() - comment5 + ""); 
-    	
+         
+        sp.doLayout(); 
+        jscrollBar.setValue(jscrollBar.getMaximum());
+        
         this.setLayout(new BorderLayout());
         this.add(MonthPickerPanel.instance, BorderLayout.NORTH);
-        this.add(HistoryListPanel.instance, BorderLayout.CENTER);
+        this.add(sp,BorderLayout.CENTER);
+        this.add(HistoryListPanel.instance, BorderLayout.CENTER); 
     }
 
     public static void main(String[] args) {

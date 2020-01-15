@@ -24,11 +24,11 @@ public class HistoryListListener implements ActionListener {
         HistoryListPanel p = HistoryListPanel.instance;
         JButton b = (JButton) e.getSource();
 
-        if (p.bAdd == b) {
+        //if (p.bAdd == b) {
             //交给RecordPanel处理
-            MainPanel.instance.workingPanel.show(RecordPanel.instance);
-            RecordPanel.instance.datepick.setDate(MonthPickerPanel.instance.toDay);
-        }
+        //    MainPanel.instance.workingPanel.show(RecordPanel.instance);
+        //    RecordPanel.instance.datepick.setDate(MonthPickerPanel.instance.toDay);
+        //}
         if (p.bEdit == b) {
             //交给RecordPanel处理
             if (!p.checkSelected()) {

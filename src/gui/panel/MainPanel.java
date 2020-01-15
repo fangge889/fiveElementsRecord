@@ -40,7 +40,7 @@ public class MainPanel extends JPanel {
     private MainPanel() {
 
         //GUIUtil.setImageIcon(bSpend, "home.png", "本月一览");
-        GUIUtil.setImageIcon(bRecord, "record.png", "记一笔");
+        //GUIUtil.setImageIcon(bRecord, "record.png", "记一笔");
         GUIUtil.setImageIcon(bHistory, "history.png", "历史记录");
         //GUIUtil.setImageIcon(bReport, "report.png", "月消费报表");
         //GUIUtil.setImageIcon(bCategory, "category.png", "消费分类");

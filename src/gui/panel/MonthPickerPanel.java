@@ -8,6 +8,8 @@ import util.GUIUtil;
 
 import javax.swing.*;
 
+import org.jdesktop.swingx.JXDatePicker;
+
 import java.awt.*;
 import java.util.Calendar;
 import java.util.Date;
@@ -30,16 +32,48 @@ public class MonthPickerPanel extends WorkingPanel {
     //写死起始年份
     private final static int startYear = 2017;
     //当前面板实例的时间
-    public Date date = DateUtil.monthBegin(); 
+    //public Date date = DateUtil.monthBegin(); 
     
     public Date toDay = geToDay(DateUtil.thisYear(),DateUtil.thisMonth(),DateUtil.thisDay());
     public JComboBox<Integer> cbDay = new JComboBox<>(makeDays(getCurrentMonthDay()));
     public JComboBox<Integer> cbMonth = new JComboBox<>(makeMonths());
     public JComboBox<Integer> cbYear = new JComboBox<>(makeYears());
-    private JButton bSubmit = new JButton("查询");   
+    public JButton bSubmit = new JButton("查询");   
+    
+    public JButton lComment1 = new JButton("金");
+    public JButton lComment2 = new JButton("木");
+    public JButton lComment3 = new JButton("水");
+    public JButton lComment4 = new JButton("火");
+    public JButton lComment5 = new JButton("土");
+    public JXDatePicker datepick = new JXDatePicker(new Date());
+    
+    public JTextField tfComment1 = new JTextField();
+    public JTextField tfComment2 = new JTextField();
+    public JTextField tfComment3 = new JTextField();
+    public JTextField tfComment4 = new JTextField();
+    public JTextField tfComment5 = new JTextField(); 
 
     private MonthPickerPanel() {
-        this.setLayout(new GridLayout(1, 5, 8, 8));
+        this.setLayout(new GridLayout(3, 5, 8, 8));
+        
+        tfComment1.setVisible(false);
+        tfComment2.setVisible(false);
+        tfComment3.setVisible(false);
+        tfComment4.setVisible(false);
+        tfComment5.setVisible(false);
+        
+        this.add(tfComment1);
+        this.add(tfComment2);
+        this.add(tfComment3);
+        this.add(tfComment4);
+        this.add(tfComment5);
+        
+        this.add(lComment1);
+        this.add(lComment2);
+        this.add(lComment3);
+        this.add(lComment4);
+        this.add(lComment5);
+        this.add(datepick); 
         
         //调整到当前月
         cbYear.setSelectedIndex(DateUtil.thisYear() - startYear);
@@ -49,7 +83,7 @@ public class MonthPickerPanel extends WorkingPanel {
         this.add(cbMonth);
         this.add(cbDay);
         this.add(bSubmit);
-        addListener(); 
+        addListener();  
     }
 
 	/**
@@ -95,6 +129,11 @@ public class MonthPickerPanel extends WorkingPanel {
     @Override
     public void addListener() {
         bSubmit.addActionListener(new MonthPickerListener()); 
+        lComment1.addActionListener(new MonthPickerListener()); 
+        lComment2.addActionListener(new MonthPickerListener()); 
+        lComment3.addActionListener(new MonthPickerListener()); 
+        lComment4.addActionListener(new MonthPickerListener()); 
+        lComment5.addActionListener(new MonthPickerListener());  
     }
      
     public static int getCurrentMonthDay() {
