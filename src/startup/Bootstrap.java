@@ -3,7 +3,6 @@ package startup;
 import gui.frame.MainFrame;
 import gui.panel.HistoryPanel;
 import gui.panel.MainPanel;
-import gui.panel.SpendPanel;
 import util.GUIUtil;
 
 import javax.swing.*;

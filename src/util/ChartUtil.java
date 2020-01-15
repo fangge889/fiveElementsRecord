@@ -13,7 +13,6 @@ import javax.swing.JPanel;
 import com.objectplanet.chart.BarChart;
 import com.objectplanet.chart.Chart;
 import entity.Record;
-import service.ReportService;
 
 /**
  * 工具类 CharUtil 图表
@@ -110,14 +109,5 @@ public class ChartUtil {
         return sampleLabels;
     }
 
-    public static void main(String[] args) {
-        JPanel p = new JPanel();
-        JLabel l = new JLabel();
-        Image img = ChartUtil.getImage(new ReportService().listThisMonthRecords(), 400, 300);
-        Icon icon = new ImageIcon(img);
-        l.setIcon(icon);
-        p.add(l);
-        GUIUtil.showPanel(p);
-    }
-
+    
 }
